@@ -1,0 +1,23 @@
+<section id="tasks">
+  <header>
+  <h2>{{ userName() }}'s Tasks</h2>
+  <menu>
+    <button (click)="openNewTaskForm()" >Add Task</button>
+  </menu>
+
+  @if(isAddingTask()) {
+    <app-new-task [userId]="userId()" (close)="onCloseAddTask()"  />
+  }
+
+  </header>
+
+  @if(selectedUserTasks().length === 0) {
+    <p id="no-tasks">No tasks for {{ userName() }}.</p>
+  } @else {
+  <ul>
+    @for (item of selectedUserTasks(); track item.id) {
+          <app-task [taskItem]="item" (complete)="onCompleteTask($event)"/>
+    }
+  </ul>
+}
+</section>
